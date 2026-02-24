@@ -1,4 +1,4 @@
-#include "../include/bssn_rhs_compute.h"
+#include "include/bssn_rhs_compute.h"
 
 int main() {
     // 这里可以写一些测试代码，调用 f_compute_rhs_bssn 来验证它的正确性
