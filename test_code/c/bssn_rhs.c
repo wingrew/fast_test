@@ -28,7 +28,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
                        double *Rxx, double *Rxy, double *Rxz, double *Ryy, double *Ryz, double *Rzz,
                        double *ham_Res, double *movx_Res, double *movy_Res, double *movz_Res,
                        double *Gmx_Res, double *Gmy_Res, double *Gmz_Res,
-                       int &Symmetry, int &Lev, double &eps, int &co,
+                       int &Symmetry, int &Lev, double &eps, int &co
                        )  // return gont
 {   
     int nx = ex[0], ny = ex[1], nz=ex[2];
@@ -81,7 +81,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
     double Gamyx[all],Gamyy[all],Gamyz[all];
     double Gamzx[all],Gamzy[all],Gamzz[all];
     double Kx[all], Ky[all], Kz[all], div_beta[all], S[all];
-    double f[all], fxx[all], fxy[all], fyy[all], fyz[all], fzz[all];
+    double f[all], fxx[all], fxy[all], fxz[all], fyy[all], fyz[all], fzz[all];
     double Gamxa[all], Gamya[all], Gamza[all], alpn1[all], chin1[all];
     double gupxx[all], gupxy[all], gupxz[all];
     double gupyy[all], gupyz[all], gupzz[all];
@@ -97,7 +97,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
     double reta[all];
     /* 使用时：reta[idx]，其中 idx = i + nx*(j + ny*k)  (Fortran列主序) */
     #endif
-    double PI = acos(-1.0); 
+    PI = acos(-1.0); 
     dX = X[1] - X[0];
     dY = Y[1] - Y[0];
     dZ = Z[1] - Z[0];
@@ -130,7 +130,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
         div_beta[i] = betaxx[i] + betayy[i] + betazz[i];
     }
 
-    fderivs(ex,chi,chix,chiy,chiz,X,Y,Z,SYM,SYM,SYM,symmetry,Lev);
+    fderivs(ex,chi,chix,chiy,chiz,X,Y,Z,SYM,SYM,SYM,Symmetry,Lev);
     for(int i=0;i<all;i+=1){
         chi_rhs[i] = F2o3 * chin1[i] * (alpn1[i] * trK[i] - div_beta[i]); 
     }
@@ -351,7 +351,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
             + ( gupyy[i]*gupzz[i] + gupyz[i]*gupyz[i] ) * Ayz[i];
     }
     fderivs(ex,Lap,Lapx,Lapy,Lapz,X,Y,Z,SYM,SYM,SYM,Symmetry,Lev);
-    fderivs(ex,trK,Kx,Ky,Kz,X,Y,Z,SYM,SYM,SYM,symmetry,Lev);
+    fderivs(ex,trK,Kx,Ky,Kz,X,Y,Z,SYM,SYM,SYM,Symmetry,Lev);
 
     for(int i=0;i<all;i+=1){
         Gamx_rhs[i] = - TWO * (   Lapx[i] * Rxx[i] +   Lapy[i] * Rxy[i] +   Lapz[i] * Rxz[i] ) + 
@@ -457,37 +457,37 @@ int f_compute_rhs_bssn(int *ex, double &T,
     }
 
 
-    fdderivs(ex,dxx,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,SYM ,SYM ,symmetry,Lev);
+    fdderivs(ex,dxx,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,SYM ,SYM ,Symmetry,Lev);
     for (int i = 0; i < all; i += 1) {
         Rxx[i] =  gupxx[i] * fxx[i] + gupyy[i] * fyy[i] + gupzz[i] * fzz[i]
                 + (gupxy[i] * fxy[i] + gupxz[i] * fxz[i] + gupyz[i] * fyz[i]) * TWO;
     }
 
-    fdderivs(ex,dzz,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,SYM ,SYM ,symmetry,Lev);
+    fdderivs(ex,dzz,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,SYM ,SYM ,Symmetry,Lev);
     for (int i = 0; i < all; i += 1) {
         Ryy[i] =  gupxx[i] * fxx[i] + gupyy[i] * fyy[i] + gupzz[i] * fzz[i]
                 + (gupxy[i] * fxy[i] + gupxz[i] * fxz[i] + gupyz[i] * fyz[i]) * TWO;
     }
 
-    fdderivs(ex,dyy,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,SYM ,SYM ,symmetry,Lev);
+    fdderivs(ex,dyy,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,SYM ,SYM ,Symmetry,Lev);
     for (int i = 0; i < all; i += 1) {
         Rzz[i] =  gupxx[i] * fxx[i] + gupyy[i] * fyy[i] + gupzz[i] * fzz[i]
                 + (gupxy[i] * fxy[i] + gupxz[i] * fxz[i] + gupyz[i] * fyz[i]) * TWO;
     }
 
-    fdderivs(ex,gxy,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,ANTI, ANTI,SYM ,symmetry,Lev);
+    fdderivs(ex,gxy,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,ANTI, ANTI,SYM ,Symmetry,Lev);
     for (int i = 0; i < all; i += 1) {
         Rxy[i] =  gupxx[i] * fxx[i] + gupyy[i] * fyy[i] + gupzz[i] * fzz[i]
                 + (gupxy[i] * fxy[i] + gupxz[i] * fxz[i] + gupyz[i] * fyz[i]) * TWO;
     }
 
-    fdderivs(ex,gxz,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,ANTI ,SYM ,ANTI,symmetry,Lev);
+    fdderivs(ex,gxz,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,ANTI ,SYM ,ANTI,Symmetry,Lev);
     for (int i = 0; i < all; i += 1) {
         Rxz[i] =  gupxx[i] * fxx[i] + gupyy[i] * fyy[i] + gupzz[i] * fzz[i]
                 + (gupxy[i] * fxy[i] + gupxz[i] * fxz[i] + gupyz[i] * fyz[i]) * TWO;
     }
 
-    fdderivs(ex,gyz,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,ANTI ,ANTI,symmetry,Lev);
+    fdderivs(ex,gyz,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM ,ANTI ,ANTI,Symmetry,Lev);
     for (int i = 0; i < all; i += 1) {
         Ryz[i] =  gupxx[i] * fxx[i] + gupyy[i] * fyy[i] + gupzz[i] * fzz[i]
                 + (gupxy[i] * fxy[i] + gupxz[i] * fxz[i] + gupyz[i] * fyz[i]) * TWO;
@@ -773,7 +773,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
         Ryz[i] = Ryz[i] + ( fyz[i] - (chiy[i] * chiz[i]) / (chin1[i] * TWO) + gyz[i] * f[i] ) / (chin1[i] * TWO);
     }
 
-    fdderivs(ex,Lap,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM,SYM,SYM,symmetry,Lev);
+    fdderivs(ex,Lap,fxx,fxy,fxz,fyy,fyz,fzz,X,Y,Z,SYM,SYM,SYM,Symmetry,Lev);
 
     for (int i = 0; i < all; i += 1) {
         /* gxxx,gxxy,gxxz (这里是“升指标后的chi导数/chi”那类量，你沿用原变量名即可) */
@@ -1026,7 +1026,7 @@ int f_compute_rhs_bssn(int *ex, double &T,
                     + gupxz[i] * dtSfx_rhs[i] * dtSfz_rhs[i]
                     + gupyz[i] * dtSfy_rhs[i] * dtSfz_rhs[i] );
 
-        reta[i] = 1.31 / 2.0 * dsqrt( reta[i] / chin1[i] ) / pow( (1.0 - dsqrt(chin1[i])), 2.0 );
+        reta[i] = 1.31 / 2.0 * sqrt( reta[i] / chin1[i] ) / pow( (1.0 - sqrt(chin1[i])), 2.0 );
 
         dtSfx_rhs[i] = Gamx_rhs[i] - reta[i] * dtSfx[i];
         dtSfy_rhs[i] = Gamy_rhs[i] - reta[i] * dtSfy[i];

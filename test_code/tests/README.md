@@ -14,5 +14,6 @@
 - `fdderivs`
 - `kodis`
 - `lopsided`
+- `compute_rhs_bssn`（C: `f_compute_rhs_bssn` vs Fortran: `compute_rhs_bssn`）
 
 若缺少 Fortran 前端，脚本会在启动时给出明确提示并退出。

@@ -23,5 +23,5 @@ int f_compute_rhs_bssn(int *ex, double &T,
                        double *Rxx, double *Rxy, double *Rxz, double *Ryy, double *Ryz, double *Rzz,
                        double *ham_Res, double *movx_Res, double *movy_Res, double *movz_Res,
                        double *Gmx_Res, double *Gmy_Res, double *Gmz_Res,
-                       int &Symmetry, int &Lev, double &eps, int &co,
+                       int &Symmetry, int &Lev, double &eps, int &co
                        ); 
