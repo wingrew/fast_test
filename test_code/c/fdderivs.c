@@ -1,4 +1,4 @@
-#include "../include/tool.h"
+#include "include/tool.h"
 void fdderivs(const int ex[3],
               const double *f,
               double *fxx, double *fxy, double *fxz,
