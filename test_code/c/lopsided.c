@@ -1,4 +1,4 @@
-#include "../include/tool.h"
+#include "include/tool.h"
 /*
  * 你需要提供 symmetry_bd 的 C 版本（或 Fortran 绑到 C 的接口）。
  * Fortran: call symmetry_bd(3,ex,f,fh,SoA)

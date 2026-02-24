@@ -1,4 +1,4 @@
-#include "../include/tool.h"
+#include "include/tool.h"
 
 /*
  * C 版 fderivs

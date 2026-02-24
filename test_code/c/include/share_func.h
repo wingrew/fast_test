@@ -1,3 +1,6 @@
+#ifndef SHARE_FUNC_H
+#define SHARE_FUNC_H
+
 #include <stdlib.h>
 #include <stddef.h>
 #include <math.h>
@@ -85,7 +88,7 @@ static inline size_t idx_funcc_F(int iF, int jF, int kF, int ord, const int extc
  *   funcc(:,:,-i) = funcc(:,:,i+1)*SoA(3)
  * enddo
  */
-void symmetry_bd(int ord,
+static inline void symmetry_bd(int ord,
                  const int extc[3],
                  const double *func,
                  double *funcc,
@@ -141,3 +144,4 @@ void symmetry_bd(int ord,
         }
     }
 }
+#endif

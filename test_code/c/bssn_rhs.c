@@ -1,4 +1,4 @@
-#include "../include/bssn_rhs_compute.h"
+#include "include/bssn_rhs_compute.h"
 // 0-based i,j,k
 // #define IDX_F(i,j,k,nx,ny) ((i) + (j)*(nx) + (k)*(nx)*(ny))
 // ex(1)=nx, ex(2)=ny, ex(3)=nz
